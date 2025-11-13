@@ -68,32 +68,38 @@ complete -F -c waydroid -n "__fish_seen_subcommand_from app; and __fish_seen_sub
 complete -f -c waydroid -n "__fish_seen_subcommand_from prop; and not __fish_seen_subcommand_from get set" -a get -d "get value of property from container"
 complete -f -c waydroid -n "__fish_seen_subcommand_from prop; and not __fish_seen_subcommand_from get set" -a set -d "set value to property on container"
 
-#prop get/set - property name completions (only when no property has been typed yet)
-#set -l prop_condition "__fish_seen_subcommand_from prop; and __fish_seen_subcommand_from get set; and not CONDITION"
-#complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.height_padding"           -d "number, 0-9999"
-#complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.width_padding"            -d "number, 0-9999"
-#complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.width"                    -d "number, 0-9999"
-#complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.height"                   -d "number, 0-9999"
-#complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.multi_windows"            -d "bool"
-#complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.suspend"                  -d "bool"
-#complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.uevent"                   -d "bool"
-#complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.reverse_scrolling"        -d "bool"
-#complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.no_presentation"          -d "bool"
-#complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.invert_colors"            -d "bool"
-#complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.cursor_on_subsurface"     -d "bool"
-#complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.cursor_force_shm"         -d "bool"
-#complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.no_background_subsurface" -d "bool"
-#complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.use_subsurface"           -d "bool"
-#complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.fake_touch"               -d "string"
-#complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.fake_wifi"                -d "string"
+#prop get/set - property name completions
+set -l waydroid_prop persist.waydroid.height_padding persist.waydroid.width_padding persist.waydroid.width persist.waydroid.height persist.waydroid.multi_windows persist.waydroid.suspend persist.waydroid.uevent persist.waydroid.reverse_scrolling persist.waydroid.no_presentation persist.waydroid.invert_colors persist.waydroid.cursor_on_subsurface persist.waydroid.cursor_force_shm persist.waydroid.no_background_subsurface persist.waydroid.use_subsurface persist.waydroid.fake_touch persist.waydroid.fake_wifi
+set -l prop_condition "__fish_seen_subcommand_from prop; and __fish_seen_subcommand_from get set; and not __fish_seen_subcommand_from $waydroid_prop"
+complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.height_padding"           -d "0-9999"
+complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.width_padding"            -d "0-9999"
+complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.width"                    -d "0-9999"
+complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.height"                   -d "0-9999"
+complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.multi_windows"            -d "bool"
+complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.suspend"                  -d "bool"
+complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.uevent"                   -d "bool"
+complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.reverse_scrolling"        -d "bool"
+complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.no_presentation"          -d "bool"
+complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.invert_colors"            -d "bool"
+complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.cursor_on_subsurface"     -d "bool"
+complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.cursor_force_shm"         -d "bool"
+complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.no_background_subsurface" -d "bool"
+complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.use_subsurface"           -d "bool"
+complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.fake_touch"               -d "list of package names"
+complete -f -c waydroid -n "$prop_condition" -a "persist.waydroid.fake_wifi"                -d "list of package names"
+
+#prop set - boolean value completions
+set -l waydroid_prop_bool persist.waydroid.multi_windows persist.waydroid.suspend persist.waydroid.uevent persist.waydroid.reverse_scrolling persist.waydroid.no_presentation persist.waydroid.invert_colors persist.waydroid.cursor_on_subsurface persist.waydroid.cursor_force_shm persist.waydroid.no_background_subsurface persist.waydroid.use_subsurface
+set -l prop_condition "__fish_seen_subcommand_from prop; and __fish_seen_subcommand_from set; and __fish_seen_subcommand_from $waydroid_prop_bool; and not __fish_seen_subcommand_from true false"
+complete -f -c waydroid -n "$prop_condition" -a "true false"
 
 #shell
 complete -f -c waydroid -n "__fish_seen_subcommand_from shell" -s u -l uid          -r -d "the UID to run as"
 complete -f -c waydroid -n "__fish_seen_subcommand_from shell" -s g -l gid          -r -d "the GID to run as"
 complete -f -c waydroid -n "__fish_seen_subcommand_from shell" -s s -l context      -r -d "transition to the specified SELinux or AppArmor security context"
-complete -f -c waydroid -n "__fish_seen_subcommand_from shell" -s L -l nolsm           -d "[DANGER]Don't perform security domain transition related to mandatory access control"
-complete -f -c waydroid -n "__fish_seen_subcommand_from shell" -s C -l allcaps         -d "[DANGER]Don't drop capabilities"
-complete -f -c waydroid -n "__fish_seen_subcommand_from shell" -s G -l nocgroup        -d "[DANGER]Don't switch to the container cgroup"
+complete -f -c waydroid -n "__fish_seen_subcommand_from shell" -s L -l nolsm           -d "Don't perform security domain transition related to mandatory access control"
+complete -f -c waydroid -n "__fish_seen_subcommand_from shell" -s C -l allcaps         -d "Don't drop capabilities"
+complete -f -c waydroid -n "__fish_seen_subcommand_from shell" -s G -l nocgroup        -d "Don't switch to the container cgroup"
 
 #below subcommands don't have any parameter or subcommand avaliable
 #status
