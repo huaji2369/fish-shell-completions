@@ -1,3 +1,6 @@
+# use with packages below:
+# waydroidsu(CNRepo/AUR)
+##################################################
 #all subcommands
 set -l wsu_commands status install setup remove update module magiskhide denylist zygisk superuser
 
