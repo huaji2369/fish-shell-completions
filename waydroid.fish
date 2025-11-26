@@ -12,8 +12,8 @@ complete -f waydroid -s h -l help -d "show help message and exit"
 complete -f waydroid
 
 #main command parameter
-complete -f waydroid -n "not __fish_seen_subcommand_from $commands" -s V -l version       -d "show version number and exit"
 complete -F waydroid -n "not __fish_seen_subcommand_from $commands" -s l -l log        -r -d "path to log file"
+complete -f waydroid -n "not __fish_seen_subcommand_from $commands" -s V -l version       -d "show version number and exit"
 complete -f waydroid -n "not __fish_seen_subcommand_from $commands" -s v -l verbose       -d "write even more to the logfiles"
 complete -f waydroid -n "not __fish_seen_subcommand_from $commands" -s q -l quiet         -d "do not output any log messages"
 complete -f waydroid -n "not __fish_seen_subcommand_from $commands" -s w -l wait          -d "wait for init before running"
