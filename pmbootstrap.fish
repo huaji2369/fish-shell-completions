@@ -1,3 +1,7 @@
+# use with packages below:
+# pmbootstrap
+# pmbootstrap-git(CNRepo/AUR)
+##################################################
 ###all pmbootstrap commands
 set -l commands\
     shutdown\
