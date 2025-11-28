@@ -1,7 +1,3 @@
-# use with packages below:
-# waydroid
-# waydroid-git(CNRepo/AUR)
-##################################################
 #all subcommands avaliable
 set -l commands status log init upgrade session container app prop show-full-ui first-launch shell logcat
 
