@@ -1,3 +1,13 @@
+function __fish_adb_list_directory #from adb.fish
+    set -l token (commandline -ct)
+    # Have tab complete show initial / if nothing on current token
+    if test -z "$token"
+        set token /
+    end
+    # Return list of directories suffixed with '/'
+    adb shell find -H "$token*" -maxdepth 0 -type d 2\>/dev/null | string replace -r '$' /
+end
+
 set -l listencoders #TODO
 set -l listcameras #TODO
 set -l listdisplays #TODO
@@ -33,19 +43,19 @@ complete -f scrcpy -s v -l version                                        -d "Pr
 complete -f scrcpy -s w -l stay-awake                                     -d "Keep the device on while scrcpy is running"
 complete -F scrcpy -s r -l record                                      -r -d "Record screen to file"
 complete -x scrcpy -s V -l verbosity                      -a "$verbosity" -d "Set the log level "
-complete -f scrcpy      -l audio-encoder              -ra "$listencoders" -d "Use a specific MediaCodec audio encoder"
-complete -f scrcpy      -l camera-id                   -ra "$listcameras" -d "Specify the device camera id to mirror"
-complete -f scrcpy      -l camera-size              -ra "$listcamerasize" -d "Specify an explicit camera capture size"
-complete -f scrcpy      -l display-id                 -ra "$listdisplays" -d "Specify the device display id to mirror"
-complete -f scrcpy      -l video-encoder              -ra "$listencoders" -d "Use a specific MediaCodec video encoder "
-complete -f scrcpy      -l audio-codec                 -ra "$audio_codec" -d "Select an audio codec"
-complete -f scrcpy      -l camera-facing             -ra "$camera_facing" -d "Select the device camera by its facing direction"
-complete -f scrcpy      -l record-format             -ra "$record_format" -d "Force recording format "
-complete -f scrcpy      -l display-orientation -ra "$display_orientation" -d "Set the initial display orientation"
-complete -f scrcpy      -l record-orientation   -ra "$record_orientation" -d "Set the record orientation"
-complete -f scrcpy      -l capture-orientation -ra "$capture_orientation" -d "Set the capture video orientation"
-complete -f scrcpy      -l render-driver             -ra "$render_driver" -d "Request SDL to use the given render driver"
-complete -f scrcpy      -l shortcut-mod               -ra "$shortcut_mod" -d "Specify the modifiers to use for scrcpy shortcuts"
+complete -x scrcpy      -l audio-encoder               -a "$listencoders" -d "Use a specific MediaCodec audio encoder"
+complete -x scrcpy      -l camera-id                    -a "$listcameras" -d "Specify the device camera id to mirror"
+complete -x scrcpy      -l camera-size               -a "$listcamerasize" -d "Specify an explicit camera capture size"
+complete -x scrcpy      -l display-id                  -a "$listdisplays" -d "Specify the device display id to mirror"
+complete -x scrcpy      -l video-encoder               -a "$listencoders" -d "Use a specific MediaCodec video encoder "
+complete -x scrcpy      -l audio-codec                  -a "$audio_codec" -d "Select an audio codec"
+complete -x scrcpy      -l camera-facing              -a "$camera_facing" -d "Select the device camera by its facing direction"
+complete -x scrcpy      -l record-format              -a "$record_format" -d "Force recording format "
+complete -x scrcpy      -l display-orientation  -a "$display_orientation" -d "Set the initial display orientation"
+complete -x scrcpy      -l record-orientation    -a "$record_orientation" -d "Set the record orientation"
+complete -x scrcpy      -l capture-orientation  -a "$capture_orientation" -d "Set the capture video orientation"
+complete -x scrcpy      -l render-driver              -a "$render_driver" -d "Request SDL to use the given render driver"
+complete -x scrcpy      -l shortcut-mod                -a "$shortcut_mod" -d "Specify the modifiers to use for scrcpy shortcuts"
 complete -x scrcpy      -l angle                                          -d "Rotate the video content by a custom angle"
 complete -x scrcpy      -l audio-output-buffer                            -d "Configure the size of the SDL audio output buffer (in milliseconds)"
 complete -x scrcpy      -l camera-ar                                      -d "Select the camera size by its aspect ratio (+/- 10%)"
@@ -109,7 +119,7 @@ complete -f scrcpy -l raw-key-events           -d "Inject key events for all inp
 complete -f scrcpy -l require-audio            -d "fail if audio capture fails on the device "
 complete -f scrcpy -l tcpip                    -d "Configure and connect the device over TCP/IP"
 
-complete -f scrcpy -l audio-source                             -d "Select the audio source"
+complete -f scrcpy -l audio-source                            -d "Select the audio source"
 complete -x scrcpy -l audio-source -a output                  -d "forwards the whole audio output, and disables playback on the device"
 complete -x scrcpy -l audio-source -a playback                -d "captures the audio playback"
 complete -x scrcpy -l audio-source -a mic                     -d "captures the microphone"
@@ -122,35 +132,36 @@ complete -x scrcpy -l audio-source -a voice-call-uplink       -d "captures voice
 complete -x scrcpy -l audio-source -a voice-call-downlink     -d "captures voice call downlink only"
 complete -x scrcpy -l audio-source -a voice-performance       -d "captures audio meant to be processed for live performance"
 
-complete -f scrcpy -l display-ime-policy              -d "Set the policy for selecting where the IME should be displayed"
+complete -f scrcpy -l display-ime-policy             -d "Set the policy for selecting where the IME should be displayed"
 complete -x scrcpy -l display-ime-policy -a local    -d "the IME should appear on the local display"
 complete -x scrcpy -l display-ime-policy -a fallback -d "the IME should appear on a fallback display (the default display)"
 complete -x scrcpy -l display-ime-policy -a hide     -d "the IME should be hidden"
 
-complete -f scrcpy -l gamepad              -d "Select how to send gamepad inputs to the device"
+complete -f scrcpy -l gamepad             -d "Select how to send gamepad inputs to the device"
 complete -x scrcpy -l gamepad -a disabled -d "does not send gamepad inputs to the device"
 complete -x scrcpy -l gamepad -a uhid     -d "simulates physical HID gamepads using the Linux UHID kernel module on the device"
 complete -x scrcpy -l gamepad -a aoa      -d "simulates physical gamepads using the AOAv2 protocol"
 
-complete -f scrcpy -l keyboard              -d "Select how to send keyboard inputs to the device"
+complete -f scrcpy -l keyboard             -d "Select how to send keyboard inputs to the device"
 complete -x scrcpy -l keyboard -a disabled -d "does not send keyboard inputs to the device"
 complete -x scrcpy -l keyboard -a sdk      -d "uses the Android system API to deliver keyboard events to applications"
 complete -x scrcpy -l keyboard -a uhid     -d "simulates a physical HID keyboard using the Linux UHID kernel module on the device"
 complete -x scrcpy -l keyboard -a aoa      -d "simulates a physical keyboard using the AOAv2 protocol"
 
-complete -f scrcpy -l mouse              -d "Select how to send mouse inputs to the device"
+complete -f scrcpy -l mouse             -d "Select how to send mouse inputs to the device"
 complete -x scrcpy -l mouse -a disabled -d "does not send mouse inputs to the device"
 complete -x scrcpy -l mouse -a sdk      -d "uses the Android system API to deliver mouse events to applications"
 complete -x scrcpy -l mouse -a uhid     -d "simulates a physical HID mouse using the Linux UHID kernel module on the device"
 complete -x scrcpy -l mouse -a aoa      -d "simulates a physical mouse using the AOAv2 protocol"
 
-complete -f scrcpy -l pause-on-exit              -d "Configure pause on exit "
+complete -f scrcpy -l pause-on-exit             -d "Configure pause on exit "
 complete -x scrcpy -l pause-on-exit -a true     -d "always pause on exit"
 complete -x scrcpy -l pause-on-exit -a false    -d "never pause on exit"
 complete -x scrcpy -l pause-on-exit -a if-error -d "pause only if an error occurred"
 
-complete -x scrcpy -l push-target -d "Set the target directory for pushing files to the device by drag & drop"
-#TODO: directoy completions on target device
+# since adb is a dependency of scrcpy, we assume adb is installed
+complete -f scrcpy -l push-target                                   -d "Set the target directory for pushing files to the device by drag & drop"
+complete -x scrcpy -l push-target -a "(__fish_adb_list_directory)"  -d "Directory on device"
 
 complete -f scrcpy -l mouse-bind -r -d "Configure bindings of secondary clicks"
 #TODO: add completions for mouse-bind option
