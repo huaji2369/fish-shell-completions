@@ -119,7 +119,6 @@ complete -f scrcpy -l raw-key-events           -d "Inject key events for all inp
 complete -f scrcpy -l require-audio            -d "fail if audio capture fails on the device "
 complete -f scrcpy -l tcpip                    -d "Configure and connect the device over TCP/IP"
 
-complete -f scrcpy -l audio-source                            -d "Select the audio source"
 complete -x scrcpy -l audio-source -a output                  -d "forwards the whole audio output, and disables playback on the device"
 complete -x scrcpy -l audio-source -a playback                -d "captures the audio playback"
 complete -x scrcpy -l audio-source -a mic                     -d "captures the microphone"
@@ -131,33 +130,34 @@ complete -x scrcpy -l audio-source -a voice-call              -d "captures voice
 complete -x scrcpy -l audio-source -a voice-call-uplink       -d "captures voice call uplink only"
 complete -x scrcpy -l audio-source -a voice-call-downlink     -d "captures voice call downlink only"
 complete -x scrcpy -l audio-source -a voice-performance       -d "captures audio meant to be processed for live performance"
+complete -f scrcpy -l audio-source                            -d "Select the audio source"
 
-complete -f scrcpy -l display-ime-policy             -d "Set the policy for selecting where the IME should be displayed"
 complete -x scrcpy -l display-ime-policy -a local    -d "the IME should appear on the local display"
 complete -x scrcpy -l display-ime-policy -a fallback -d "the IME should appear on a fallback display (the default display)"
 complete -x scrcpy -l display-ime-policy -a hide     -d "the IME should be hidden"
+complete -f scrcpy -l display-ime-policy             -d "Set the policy for selecting where the IME should be displayed"
 
-complete -f scrcpy -l gamepad             -d "Select how to send gamepad inputs to the device"
 complete -x scrcpy -l gamepad -a disabled -d "does not send gamepad inputs to the device"
 complete -x scrcpy -l gamepad -a uhid     -d "simulates physical HID gamepads using the Linux UHID kernel module on the device"
 complete -x scrcpy -l gamepad -a aoa      -d "simulates physical gamepads using the AOAv2 protocol"
+complete -f scrcpy -l gamepad             -d "Select how to send gamepad inputs to the device"
 
-complete -f scrcpy -l keyboard             -d "Select how to send keyboard inputs to the device"
 complete -x scrcpy -l keyboard -a disabled -d "does not send keyboard inputs to the device"
 complete -x scrcpy -l keyboard -a sdk      -d "uses the Android system API to deliver keyboard events to applications"
 complete -x scrcpy -l keyboard -a uhid     -d "simulates a physical HID keyboard using the Linux UHID kernel module on the device"
 complete -x scrcpy -l keyboard -a aoa      -d "simulates a physical keyboard using the AOAv2 protocol"
+complete -f scrcpy -l keyboard             -d "Select how to send keyboard inputs to the device"
 
-complete -f scrcpy -l mouse             -d "Select how to send mouse inputs to the device"
 complete -x scrcpy -l mouse -a disabled -d "does not send mouse inputs to the device"
 complete -x scrcpy -l mouse -a sdk      -d "uses the Android system API to deliver mouse events to applications"
 complete -x scrcpy -l mouse -a uhid     -d "simulates a physical HID mouse using the Linux UHID kernel module on the device"
 complete -x scrcpy -l mouse -a aoa      -d "simulates a physical mouse using the AOAv2 protocol"
+complete -f scrcpy -l mouse             -d "Select how to send mouse inputs to the device"
 
-complete -f scrcpy -l pause-on-exit             -d "Configure pause on exit "
 complete -x scrcpy -l pause-on-exit -a true     -d "always pause on exit"
 complete -x scrcpy -l pause-on-exit -a false    -d "never pause on exit"
 complete -x scrcpy -l pause-on-exit -a if-error -d "pause only if an error occurred"
+complete -f scrcpy -l pause-on-exit             -d "Configure pause on exit "
 
 # since adb is a dependency of scrcpy, we assume adb is installed
 complete -f scrcpy -l push-target                                   -d "Set the target directory for pushing files to the device by drag & drop"
