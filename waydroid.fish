@@ -1,3 +1,12 @@
+function __fish_print_waydroid_container_package_name
+    set -l applist (waydroid app list)
+    set -l name (string replace -f -r '^Name: ' '' $applist)
+    set -l packagename (string replace -f 'packageName: ' '' $applist)
+    for i in (seq (count $name))
+        echo $packagename[$i]\t$name[$i]
+    end
+end
+
 #all subcommands avaliable
 set -l commands status log init upgrade session container app prop show-full-ui first-launch shell logcat
 
@@ -63,6 +72,8 @@ complete -f waydroid -n "__fish_seen_subcommand_from app; and not __fish_seen_su
 complete -f waydroid -n "__fish_seen_subcommand_from app; and not __fish_seen_subcommand_from install remove launch intent list" -a list        -d "list installed applications"
 #enable file completions on app install
 complete -F waydroid -n "__fish_seen_subcommand_from app; and __fish_seen_subcommand_from install"
+complete -x waydroid -n "__fish_seen_subcommand_from app; and __fish_seen_subcommand_from launch" -a "(__fish_print_waydroid_container_package_name)"
+complete -x waydroid -n "__fish_seen_subcommand_from app; and __fish_seen_subcommand_from remove" -a "(__fish_print_waydroid_container_package_name)"
 
 #prop
 complete -f waydroid -n "__fish_seen_subcommand_from prop; and not __fish_seen_subcommand_from get set" -a get -d "get value of property from container"
