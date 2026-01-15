@@ -165,20 +165,21 @@ complete -x scrcpy -l push-target -a "(__fish_adb_list_directory)"  -d "Director
 
 complete -f scrcpy -l mouse-bind -r -d "Configure bindings of secondary clicks"
 #TODO: add completions for mouse-bind option
-#   The argument must be one or two sequences (separated by ':') of exactly
-#   4 characters, one for each secondary click (in order: right click,
-#   middle click, 4th click, 5th click).
-#   The first sequence defines the primary bindings, used when a mouse
-#   button is pressed alone. The second sequence defines the secondary
-#   bindings, used when a mouse button is pressed while the Shift key is
-#   held.
-#   If the second sequence of bindings is omitted, then it is the same as
-#   the first one.
-#   Each character must be one of the following:
-#    '+': forward the click to the device
-#    '-': ignore the click
-#    'b': trigger shortcut BACK (or turn screen on if off)
-#    'h': trigger shortcut HOME
-#    's': trigger shortcut APP_SWITCH
-#    'n': trigger shortcut "expand notification panel"
-#   Default is 'bhsn:++++' for SDK mouse, and '++++:bhsn' for AOA and UHID.
+#
+#The argument must be one or two sequences (separated by ':') of exactly
+#4 characters, one for each secondary click (in order: right click,
+#middle click, 4th click, 5th click).
+#The first sequence defines the primary bindings, used when a mouse
+#button is pressed alone. The second sequence defines the secondary
+#bindings, used when a mouse button is pressed while the Shift key is
+#held.
+#If the second sequence of bindings is omitted, then it is the same as
+#the first one.
+#Each character must be one of the following:
+# '+': forward the click to the device
+# '-': ignore the click
+# 'b': trigger shortcut BACK (or turn screen on if off)
+# 'h': trigger shortcut HOME
+# 's': trigger shortcut APP_SWITCH
+# 'n': trigger shortcut "expand notification panel"
+#Default is 'bhsn:++++' for SDK mouse, and '++++:bhsn' for AOA and UHID.

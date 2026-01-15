@@ -1,5 +1,5 @@
 function __fish_print_waydroid_container_package_name
-    set -l applist (waydroid app list)
+    set -l applist (waydroid app list 2>/dev/null | grep -E '^(Name: |packageName: )')
     set -l name (string replace -f -r '^Name: ' '' $applist)
     set -l packagename (string replace -f 'packageName: ' '' $applist)
     for i in (seq (count $name))
@@ -8,7 +8,7 @@ function __fish_print_waydroid_container_package_name
 end
 
 #all subcommands avaliable
-set -l commands status log init upgrade session container app prop show-full-ui first-launch shell logcat
+set -l commands status log init upgrade session container app prop show-full-ui first-launch shell logcat adb bugreport
 
 #help parameter can be used on any (sub)commands
 complete -f waydroid -s h -l help -d "show help message and exit"
@@ -37,6 +37,8 @@ complete -f waydroid -n "not __fish_seen_subcommand_from $commands" -a show-full
 complete -f waydroid -n "not __fish_seen_subcommand_from $commands" -a first-launch -d "initialize waydroid and start it"
 complete -f waydroid -n "not __fish_seen_subcommand_from $commands" -a shell        -d "run remote shell command"
 complete -f waydroid -n "not __fish_seen_subcommand_from $commands" -a logcat       -d "show android logcat"
+complete -f waydroid -n "not __fish_seen_subcommand_from $commands" -a adb          -d "manage adb connection"
+complete -f waydroid -n "not __fish_seen_subcommand_from $commands" -a bugreport    -d "create a bugreport archive interactively"
 
 #log
 complete -f waydroid -n "__fish_seen_subcommand_from log" -s n -l lines -d "count of initial output lines"
@@ -72,6 +74,7 @@ complete -f waydroid -n "__fish_seen_subcommand_from app; and not __fish_seen_su
 complete -f waydroid -n "__fish_seen_subcommand_from app; and not __fish_seen_subcommand_from install remove launch intent list" -a list        -d "list installed applications"
 #enable file completions on app install
 complete -F waydroid -n "__fish_seen_subcommand_from app; and __fish_seen_subcommand_from install"
+#package name completions for app launch and remove
 complete -x waydroid -n "__fish_seen_subcommand_from app; and __fish_seen_subcommand_from launch" -a "(__fish_print_waydroid_container_package_name)"
 complete -x waydroid -n "__fish_seen_subcommand_from app; and __fish_seen_subcommand_from remove" -a "(__fish_print_waydroid_container_package_name)"
 
@@ -140,8 +143,13 @@ complete -f waydroid -n "__fish_seen_subcommand_from shell" -s L -l nolsm       
 complete -f waydroid -n "__fish_seen_subcommand_from shell" -s C -l allcaps         -d "Don't drop capabilities"
 complete -f waydroid -n "__fish_seen_subcommand_from shell" -s G -l nocgroup        -d "Don't switch to the container cgroup"
 
+#adb
+complete -f waydroid -n "__fish_seen_subcommand_from adb" -a connect    -d "connect adb to the Android container"
+complete -f waydroid -n "__fish_seen_subcommand_from adb" -a disconnect -d "disconnect adb from the Android container"
+
 #below subcommands don't have any parameter or subcommand avaliable
 #status
 #show-full-ui
 #first-launch
 #logcat
+#bugreport
