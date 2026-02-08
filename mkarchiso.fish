@@ -1,0 +1,17 @@
+complete -F mkarchiso
+complete -F mkarchiso -s C -r                                  -d "pacman configuration file"
+complete -F mkarchiso -s D -r                                  -d "Set an install_dir. All files will be located here"
+complete -F mkarchiso -s o -r                                  -d "Set the output directory"
+complete -F mkarchiso -s w -r                                  -d "Set the working directory"
+complete -f mkarchiso -s A -r                                  -d "Set an application name for the ISO"
+complete -f mkarchiso -s L -r                                  -d "Set the ISO volume label"
+complete -f mkarchiso -s P -r                                  -d "Set the ISO publisher"
+complete -f mkarchiso -s c -r                                  -d "Provide certificates for codesigning of netboot artifacts as well as the rootfs artifact"
+complete -f mkarchiso -s g -r                                  -d "Set the PGP key ID to be used for signing the rootfs image"
+complete -f mkarchiso -s G -r                                  -d "Set the PGP signer (must include an email address)"
+complete -f mkarchiso -s h                                     -d "Show help message"
+complete -f mkarchiso -s r                                     -d "Delete the working directory at the end"
+complete -f mkarchiso -s v                                     -d "Enable verbose output"
+complete -x mkarchiso -s p -a '(__fish_print_pacman_packages)' -d "Package(s) to install"
+
+complete -x mkarchiso -s m -a 'bootstrap iso netboot' -d "Build mode(s) to use"

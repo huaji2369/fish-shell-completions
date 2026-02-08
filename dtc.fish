@@ -18,7 +18,7 @@ complete -f dtc -s s -l sort              -d 'Sort nodes and properties before o
 complete -f dtc -s T -l annotate          -d 'Annotate output .dts with input source file and line'
 complete -f dtc -s v -l version           -d 'Print version and exit'
 complete -f dtc -s @ -l symbols           -d 'Enable generation of symbols'
-complete -f dtc      -l no-error       -r -d 'Enable errors'
+complete -f dtc      -l no-error       -r -d 'Disable errors'
 complete -f dtc      -l no-warning     -r -d 'Disable warnings'
 
 complete -x dtc -s I -l in-format -a dts -d 'device tree source text'
