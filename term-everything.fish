@@ -1,7 +1,7 @@
 complete -f term-everything -s h -l help                                                    -d "Show help message"
 complete -f term-everything      -l shell -a "(string match -r '^[^#].*' < /etc/shells)" -r -d "The shell used to launch the app"
 complete -f term-everything      -l wayland-display-name                                 -r -d "The Wayland display name"
-complete -f term-everything      -l xwayland -w Xwayland                                 -r -d "Run an Xwayland display for X11 compatibility"
+complete -f term-everything      -l xwayland                                             -r -d "Run an Xwayland display for X11 compatibility"
 complete -f term-everything      -l xwayland-wm                                          -r -d "Specifies the window manager for Xwayland"
 complete -f term-everything      -l virtual-monitor-size                                 -r -d "Sets the virtual monitor size in pixels"
 complete -f term-everything      -l max-frame-rate                                       -r -d "Limit drawing to the terminal to a specified frame rate"
